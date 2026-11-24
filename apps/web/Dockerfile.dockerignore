@@ -1,0 +1,13 @@
+# BuildKit uses this file (next to the Dockerfile) instead of a root .dockerignore.
+**/node_modules
+**/.next
+**/dist
+**/.turbo
+**/coverage
+**/.env
+**/.env.*
+!**/.env.example
+.git
+apps/api/src
+apps/api/test
+apps/api/prisma

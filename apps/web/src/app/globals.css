@@ -1,0 +1,898 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * StudyThinker design tokens.
+ * Warm paper surfaces, deep evergreen ink, an apricot highlight for progress
+ * and moments of delight, sage + clay as quiet supporting tones.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand extensions */
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-highlight-soft: var(--highlight-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-clay: var(--clay);
+  --color-clay-soft: var(--clay-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-surface-sunken: var(--surface-sunken);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-code);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.75);
+  --radius-3xl: calc(var(--radius) * 2.25);
+  --radius-4xl: calc(var(--radius) * 2.75);
+
+  --shadow-soft: 0 1px 2px rgb(9 9 11 / 0.04), 0 1px 3px rgb(9 9 11 / 0.05);
+  --shadow-lift: 0 1px 2px rgb(9 9 11 / 0.04), 0 16px 40px -16px rgb(30 27 75 / 0.22);
+
+  --animate-rise: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pop: pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-grow-y: grow-y 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-grow-x: grow-x 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-draw: draw 1.2s ease-out both;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-aurora: aurora 18s ease-in-out infinite alternate;
+  --animate-twinkle: twinkle 3.2s ease-in-out infinite;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-beam: beam 5s linear infinite;
+  --animate-travel: travel 2.8s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  --animate-word-in: word-in 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-shake: shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  --animate-eq: eq 1.4s ease-in-out infinite alternate;
+  --animate-steam: steam 3s ease-in-out infinite;
+  --animate-clock-min: spin 8s linear infinite;
+  --animate-clock-hour: spin 96s linear infinite;
+  --animate-bob: bob 5s ease-in-out infinite;
+
+  @keyframes steam {
+    0% {
+      opacity: 0;
+      transform: translateY(6px) scaleY(0.8);
+    }
+    40% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-14px) scaleY(1.1);
+    }
+  }
+  @keyframes bob {
+    0%,
+    100% {
+      transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+      transform: translateY(-10px) rotate(1deg);
+    }
+  }
+  --animate-draw-loop: draw 2.4s ease-out infinite alternate;
+  --animate-step-bar: grow-x 4.4s linear both;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+
+  @keyframes eq {
+    from {
+      transform: scaleY(0.3);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes typing {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.35;
+    }
+    30% {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+  }
+  --animate-orbit: spin 48s linear infinite;
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translateX(-1px);
+    }
+    20%,
+    80% {
+      transform: translateX(2px);
+    }
+    30%,
+    50%,
+    70% {
+      transform: translateX(-4px);
+    }
+    40%,
+    60% {
+      transform: translateX(4px);
+    }
+  }
+  --animate-orbit-reverse: spin-reverse 70s linear infinite;
+  --animate-dash: dash-flow 1.6s linear infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-node: node-glow 6s ease-in-out infinite;
+
+  @keyframes spin-reverse {
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+  @keyframes dash-flow {
+    to {
+      stroke-dashoffset: -24;
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.75;
+    }
+    50% {
+      transform: scale(1.08);
+      opacity: 1;
+    }
+  }
+  @keyframes node-glow {
+    0%,
+    100% {
+      fill: #e4e4e7;
+      r: 5;
+    }
+    35%,
+    70% {
+      fill: #6366f1;
+      r: 7;
+    }
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes beam {
+    to {
+      --lw-angle: 360deg;
+    }
+  }
+  @keyframes travel {
+    0% {
+      left: 0%;
+      opacity: 0;
+    }
+    10%,
+    90% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+  @keyframes word-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.3em);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.85) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes grow-y {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes grow-x {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes draw {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes aurora {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    100% {
+      transform: translate3d(4%, -6%, 0) scale(1.15);
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+:root {
+  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-scale: 1;
+  --radius: 0.75rem;
+
+  /* Neutrals: zinc. Accent: indigo. AI: cyan → indigo → violet. */
+  --background: #fafafa;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #4f46e5;
+  --primary-foreground: #ffffff;
+  --secondary: #eef2ff;
+  --secondary-foreground: #3730a3;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #dc2626;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #6366f1;
+
+  --highlight: #7c3aed;
+  --highlight-foreground: #ffffff;
+  --highlight-soft: #f5f3ff;
+  --sage: #0d9488;
+  --sage-soft: #f0fdfa;
+  --clay: #e11d48;
+  --clay-soft: #fff1f2;
+  --success: #059669;
+  --success-soft: #ecfdf5;
+  --warning: #d97706;
+  --warning-soft: #fffbeb;
+  --info: #0284c7;
+  --info-soft: #f0f9ff;
+  --surface-sunken: #f4f4f5;
+
+  --chart-1: #6366f1;
+  --chart-2: #8b5cf6;
+  --chart-3: #06b6d4;
+  --chart-4: #10b981;
+  --chart-5: #f59e0b;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #09090b;
+  --sidebar-primary: #4f46e5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f4f4f5;
+  --sidebar-accent-foreground: #09090b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #6366f1;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #111113;
+  --card-foreground: #fafafa;
+  --popover: #18181b;
+  --popover-foreground: #fafafa;
+  --primary: #818cf8;
+  --primary-foreground: #0b0b14;
+  --secondary: #1e1b4b;
+  --secondary-foreground: #c7d2fe;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa;
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
+  --destructive: #f87171;
+  --border: #27272a;
+  --input: #3f3f46;
+  --ring: #818cf8;
+
+  --highlight: #a78bfa;
+  --highlight-foreground: #0b0b14;
+  --highlight-soft: #2e1065;
+  --sage: #2dd4bf;
+  --sage-soft: #042f2e;
+  --clay: #fb7185;
+  --clay-soft: #4c0519;
+  --success: #34d399;
+  --success-soft: #022c22;
+  --warning: #fbbf24;
+  --warning-soft: #451a03;
+  --info: #38bdf8;
+  --info-soft: #082f49;
+  --surface-sunken: #0c0c0e;
+
+  --chart-1: #818cf8;
+  --chart-2: #a78bfa;
+  --chart-3: #22d3ee;
+  --chart-4: #34d399;
+  --chart-5: #fbbf24;
+
+  --sidebar: #0c0c0e;
+  --sidebar-foreground: #fafafa;
+  --sidebar-primary: #818cf8;
+  --sidebar-primary-foreground: #0b0b14;
+  --sidebar-accent: #18181b;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #27272a;
+  --sidebar-ring: #818cf8;
+}
+
+/* Animatable angle for rotating gradient borders on the public site. */
+@property --lw-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/*
+ * Public-site theme (landing + auth): crisp white canvas, zinc ink, black
+ * primary actions and indigo focus. Scoped so shared components restyle
+ * themselves inside it; always light, regardless of the app theme.
+ */
+.lw-site {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #09090b;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #eef2ff;
+  --accent-foreground: #3730a3;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #6366f1;
+  --surface-sunken: #fafafa;
+  --highlight: #6366f1;
+  --highlight-foreground: #ffffff;
+  --highlight-soft: #eef2ff;
+  --info: #4f46e5;
+  --info-soft: #eef2ff;
+  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  color-scheme: light;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+.lw-site [data-variant] {
+  border-radius: 9999px;
+}
+.lw-site [data-slot='input'] {
+  border-radius: 0.75rem;
+  height: 2.875rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.04);
+}
+.lw-site h1,
+.lw-site h2,
+.lw-site h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+/* Accessibility preferences (set on <html> from the learner profile). */
+:root[data-contrast='high'] {
+  --foreground: #000000;
+  --muted-foreground: #3f3f46;
+  --border: #71717a;
+  --input: #52525b;
+  --ring: #3730a3;
+  --primary: #3730a3;
+}
+:root.dark[data-contrast='high'] {
+  --foreground: #ffffff;
+  --muted-foreground: #e4e4e7;
+  --border: #a1a1aa;
+  --input: #d4d4d8;
+  --ring: #c7d2fe;
+  --primary: #c7d2fe;
+}
+:root[data-font='readable'] {
+  --font-body: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+}
+:root[data-font='readable'] body {
+  letter-spacing: 0.01em;
+  word-spacing: 0.06em;
+  line-height: 1.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root[data-motion='reduced'] *,
+:root[data-motion='reduced'] *::before,
+:root[data-motion='reduced'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    font-size: calc(100% * var(--font-scale));
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'cv11', 'ss01';
+    line-height: 1.6;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-heading;
+    font-optical-sizing: auto;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--highlight-soft);
+    color: var(--foreground);
+  }
+}
+
+@layer components {
+  /* A faint paper grain + warm wash used on hero and auth surfaces. */
+  .lw-paper {
+    background-image:
+      radial-gradient(60rem 30rem at 85% -10%, var(--highlight-soft), transparent 60%),
+      radial-gradient(50rem 30rem at -10% 10%, var(--sage-soft), transparent 55%);
+  }
+
+  /* Landing: faint dotted grid that fades out towards the edges. */
+  .lw-grid {
+    background-image: radial-gradient(
+      color-mix(in oklch, var(--foreground) 14%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 30%, transparent 75%);
+  }
+
+  /* Text with the brand's evergreen → apricot gradient (see .lw-gradient-text utility below). */
+  .lw-gradient-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--primary) 10%,
+      oklch(0.6 0.1 150) 45%,
+      oklch(0.72 0.14 62) 90%
+    );
+  }
+
+  /* "AI is thinking" shimmer text. */
+  .lw-shimmer-text {
+    background-image: linear-gradient(
+      90deg,
+      var(--muted-foreground) 0%,
+      var(--foreground) 40%,
+      var(--highlight) 50%,
+      var(--muted-foreground) 70%
+    );
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+
+  .lw-gradient-text,
+  .lw-shimmer-text {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* Card with a softly glowing gradient border. */
+  .lw-glow-card {
+    position: relative;
+    isolation: isolate;
+  }
+  .lw-glow-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      140deg,
+      color-mix(in oklch, var(--highlight) 80%, transparent),
+      color-mix(in oklch, var(--primary) 35%, transparent) 40%,
+      transparent 70%,
+      color-mix(in oklch, var(--sage) 60%, transparent)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* Deep evergreen surface for high-contrast landing sections (same in both themes). */
+  .lw-deep {
+    --background: oklch(0.2 0.035 165);
+    --foreground: oklch(0.96 0.015 85);
+    --card: oklch(0.245 0.035 165);
+    --card-foreground: oklch(0.96 0.015 85);
+    --muted: oklch(0.28 0.03 165);
+    --muted-foreground: oklch(0.78 0.03 120);
+    --border: oklch(0.34 0.03 165);
+    --primary: oklch(0.78 0.11 160);
+    --primary-foreground: oklch(0.2 0.035 165);
+    --secondary: oklch(0.3 0.04 162);
+    --secondary-foreground: oklch(0.92 0.03 150);
+    --highlight-soft: oklch(0.34 0.05 70);
+    --sage-soft: oklch(0.3 0.035 155);
+    --clay-soft: oklch(0.31 0.04 42);
+    --success-soft: oklch(0.31 0.05 155);
+    --surface-sunken: oklch(0.18 0.03 165);
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* Long-form reading surface for lessons. */
+  .lw-prose {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--foreground);
+  }
+  .lw-prose > * + * {
+    margin-top: 0.9em;
+  }
+  .lw-prose > :first-child {
+    margin-top: 0;
+  }
+  /* Compact variant for chat bubbles. */
+  .lw-prose.lw-prose-sm {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .lw-prose.lw-prose-sm > * + * {
+    margin-top: 0.6em;
+  }
+  .lw-prose.lw-prose-sm h1,
+  .lw-prose.lw-prose-sm h2,
+  .lw-prose.lw-prose-sm h3 {
+    font-size: 1rem;
+    margin-top: 0.8em;
+  }
+  .lw-prose h1,
+  .lw-prose h2,
+  .lw-prose h3,
+  .lw-prose h4 {
+    font-family: var(--font-display);
+    line-height: 1.25;
+    margin-top: 1.4em;
+    font-weight: 600;
+  }
+  .lw-prose h1 {
+    font-size: 1.6rem;
+  }
+  .lw-prose h2 {
+    font-size: 1.35rem;
+  }
+  .lw-prose h3 {
+    font-size: 1.15rem;
+  }
+  .lw-prose a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .lw-prose ul {
+    list-style: disc;
+    padding-left: 1.4em;
+  }
+  .lw-prose ol {
+    list-style: decimal;
+    padding-left: 1.4em;
+  }
+  .lw-prose li + li {
+    margin-top: 0.35em;
+  }
+  .lw-prose strong {
+    font-weight: 650;
+  }
+  .lw-prose blockquote {
+    border-left: 3px solid var(--sage);
+    padding-left: 1em;
+    color: var(--muted-foreground);
+    font-style: italic;
+  }
+  .lw-prose code {
+    font-family: var(--font-code);
+    font-size: 0.88em;
+    background: var(--muted);
+    border-radius: 0.35rem;
+    padding: 0.1em 0.35em;
+  }
+  .lw-prose pre {
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    background: oklch(0.24 0.015 165);
+    color: oklch(0.94 0.012 85);
+    border-radius: var(--radius);
+    padding: 1rem 1.15rem;
+    overflow-x: auto;
+  }
+  .lw-prose pre code {
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+  .lw-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+  .lw-prose th,
+  .lw-prose td {
+    border: 1px solid var(--border);
+    padding: 0.5em 0.75em;
+    text-align: left;
+  }
+  .lw-prose th {
+    background: var(--muted);
+    font-weight: 600;
+  }
+  .lw-prose hr {
+    border-color: var(--border);
+  }
+}
+
+/* Teacher face */
+@keyframes face-blink {
+  0%,
+  46%,
+  50%,
+  100% {
+    transform: scaleY(1);
+  }
+  48% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes face-talk {
+  from {
+    transform: scaleY(0.25);
+  }
+  to {
+    transform: scaleY(1.15);
+  }
+}
+@keyframes face-nod {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(1.5deg) translateY(1px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [class*='animate-[face-'] {
+    animation: none !important;
+  }
+}
+
+/* The assistant's face */
+@keyframes bot-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes bot-talk {
+  from {
+    transform: scaleY(0.35);
+  }
+  to {
+    transform: scaleY(1.15);
+  }
+}
+@keyframes bot-look {
+  0%,
+  40%,
+  100% {
+    transform: translateX(0);
+  }
+  50%,
+  70% {
+    transform: translateX(1.2px);
+  }
+  80%,
+  90% {
+    transform: translateX(-1.2px);
+  }
+}
+@keyframes bot-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes bot-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.bot-eyes {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    bot-blink 4.2s infinite,
+    bot-look 9s ease-in-out infinite;
+}
+.bot-mouth {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.bot-talking .bot-mouth {
+  animation: bot-talk 0.18s ease-in-out infinite alternate;
+}
+.bot-antenna {
+  animation: bot-glow 2.4s ease-in-out infinite;
+}
+.bot-talking .bot-antenna {
+  animation-duration: 0.6s;
+}
+.bot-panel-in {
+  transform-origin: bottom right;
+  animation: bot-panel-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}

@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# No AI provider key is used in CI: the API tests use a local scripted provider.
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  checks:
+    name: Lint, types, unit tests, builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm --filter @studythinker/shared build
+      - run: pnpm db:generate
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:4000
+
+  api-e2e:
+    name: API end-to-end (Postgres, scripted AI)
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: learnwell
+          POSTGRES_PASSWORD: learnwell
+          POSTGRES_DB: learnwell
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U learnwell" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://learnwell:learnwell@localhost:5432/learnwell?schema=public
+      SHADOW_DATABASE_URL: postgresql://learnwell:learnwell@localhost:5432/learnwell_shadow
+      JWT_ACCESS_SECRET: ci-access-secret-not-used-anywhere-else-0001
+      AI_KEYS_SECRET: ci-ai-keys-secret-not-used-anywhere-else-01
+      MAIL_TRANSPORT: log
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @studythinker/shared build
+      - run: pnpm db:generate
+      - name: Migrations apply to an empty database
+        run: pnpm --filter api exec prisma migrate deploy
+      - name: Migrations match the schema
+        run: |
+          PGPASSWORD=learnwell psql -h localhost -U learnwell -d learnwell -c 'CREATE DATABASE learnwell_shadow'
+          pnpm --filter api db:check-drift
+      - run: pnpm --filter api test:e2e
